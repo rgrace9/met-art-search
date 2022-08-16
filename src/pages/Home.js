@@ -10,29 +10,16 @@ function App() {
   // on refresh change the image and show in the bottom right corner show a hyperlink to the artist and title.
   // the user can click on the link to get to the artist's page
   return (
-    <div className="app">
-      <img src="/wheat-field-with-cypresses.jpeg" className="background-image" alt=''></img>
-       <div className='home-container'>
-        <div className='titles-container'>
-          <h1 className='home-title'>Met Art Search</h1>
-          {/* <p id='home-subtitle' className='home-subtitle'>Search the collection of the New York Metropolitan Museum.</p> */}
+    <div className="container">
+       <div className='left-half'>
+        <h1>Search the collection of New York's Metropolitan Museum of Art</h1>
+       </div>
+       <div className='right-half'>
+        <div className='right-corner'>
+          <img className='home-image' src='/DT1500.jpeg' alt='' />
         </div>
 
-      <div className="search-wrap">
-        <form className='search-form'>
-          <input
-            placeholder='Search the collection of the New York Metropolitan Museum'
-            aria-labelledby='home-subtitle' required className='search-bar' id='search-met' />
-          <button type='submit' aria-label='Search' className='button--no-styling '><SearchIcon /></button>
-        </form>
-        <button className='advanced-search button--no-styling'>Advanced Search</button>
-      </div>
-
-       </div>
-       <cite className='home-artist-info'>
-        Artist's Name;
-        Name of painting
-       </cite>
+</div>
     </div>
   );
 }

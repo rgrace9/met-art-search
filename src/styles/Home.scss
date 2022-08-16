@@ -161,3 +161,43 @@ $light-slate-gray: #7A8A99ff;
 
   }
 }
+
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.left-half {
+  background-color: white;
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-half {
+  background-color: white;
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.home-image {
+  width: 80%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  text-align: right;
+  border-bottom-left-radius: 100px;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
