@@ -1,3 +1,4 @@
+@import "DarkMode.scss";
 
 $black: #010201ff;
 $timberwolf: #CBCDC4ff;
@@ -60,7 +61,7 @@ $light-slate-gray: #7A8A99ff;
 }
 
 .search-form {
-  background-color: white;
+  background-color: var(--background-color);
   color: $black;
   padding: 5px;
   display: flex;
@@ -76,6 +77,7 @@ $light-slate-gray: #7A8A99ff;
   outline: none;
   padding: 0 60px 0 20px;
   font-size: 20px;
+  
 }
 
 .button--no-styling {
@@ -110,7 +112,7 @@ $light-slate-gray: #7A8A99ff;
   text-align: center;
   font-size: 4em;
   color: $black;
-  // color: white;
+  // color: var(--background-color);
   // text-shadow: 0 0 20px #010201;
 
   margin: 0;
@@ -132,37 +134,18 @@ $light-slate-gray: #7A8A99ff;
   padding: 10px;
   border: $black 2px solid;
   border-radius: 6px;
-  background: white;
+  background: var(--background-color);
   color-scheme: none;
   box-shadow: rgb(0 0 0 / 6%) 0px 1px 6px 0px, rgb(0 0 0 / 16%) 0px 2px 32px 0px;
 }
 
 .titles-container {
-  background-color: white;
+  background-color: var(--background-color);
   padding: 10px;
   margin-bottom: 20px;
   border: $black 4px solid;
   border-radius: 6px;
 }
-
-.advanced-search {
-  text-align: right;
-  margin-left: auto;
-  // border: $black 4px solid;
-  border-radius: 6px;
-  color: black;
-  background-color: white;
-  // font-weight: 900;
-  font-size: 20px;
-  padding: 4px 6px;
-  margin-top: 20px;
-  text-decoration: underline;
-  &:hover {
-    box-shadow: rgb(0 0 0 / 6%) 0px 1px 6px 0px, rgb(0 0 0 / 16%) 0px 2px 32px 0px;
-
-  }
-}
-
 
 .container {
   display: flex;
@@ -170,7 +153,7 @@ $light-slate-gray: #7A8A99ff;
 }
 
 .left-half {
-  background-color: white;
+  background-color: var(--background-color);
   flex: 1;
   padding: 1rem;
   display: flex;
@@ -179,7 +162,7 @@ $light-slate-gray: #7A8A99ff;
 }
 
 .right-half {
-  background-color: white;
+  background-color: var(--background-color);
   flex: 1;
   padding: 1rem;
   display: flex;
@@ -220,6 +203,7 @@ home-form {
   width: 90%;
   border: 2px solid $black;
   padding: 2px 6px;
+  background-color: white;
   // margin-right: 15px;
 
   &:focus-within {

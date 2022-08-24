@@ -1,24 +1,25 @@
 import React from 'react';
-import { Route, Router } from 'react-router-dom';
-
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import DarkMode from './components/DarkMode';
 import { history } from './helpers/history';
 
 import Home from './pages/Home';
 
-const Routes = () => {
+const Routing = () => {
   return (
-    <Router history={history} basename='/'>
+    <BrowserRouter history={history} basename='/'>
 
+      <Routes>
         <Route
-          path=''
-          basename=''
-          pathname='home'
-          location="/"
-          children={Home}
-        />
+          path='/'
+          element={<Home />}
+        >
+    
+        </Route>
+      </Routes>
 
-    </Router>
+    </BrowserRouter>
   )
 }
 
-export default Routes;
+export default Routing;
