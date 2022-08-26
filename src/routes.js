@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import DarkMode from './components/DarkMode';
 import { history } from './helpers/history';
 
 import Home from './pages/Home';
+import Search from './pages/Search';
 
 const Routing = () => {
   return (
@@ -14,7 +14,13 @@ const Routing = () => {
           path='/'
           element={<Home />}
         >
-    
+
+        </Route>
+        <Route
+          path='/search'
+          element={<Search />}
+        >
+
         </Route>
       </Routes>
 

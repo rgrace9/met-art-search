@@ -2,9 +2,19 @@ import '../styles/Home.scss';
 import SearchIcon from '../components/Icons/SearchIcon';
 import React, {useState} from 'react'
 import DarkMode from '../components/DarkMode';
+import { MET_API_URL } from '../constants'
 
 function App() {
 
+  const [inputText, setInputText] = useState('')
+  const onSearch = () => {
+    // `?q=${inputText}`
+  }
+
+  const onInputChange = (event) => {
+    console.log(event.target)
+    setInputText(event.target.value)
+  }
 
   // on refresh change the image and show in the bottom right corner show a hyperlink to the artist and title.
   // the user can click on the link to get to the artist's page
@@ -17,7 +27,7 @@ function App() {
         <form className='home-form'>
           <div className='search-bar-wrapper'>
             <SearchIcon />
-            <input className='search-bar' placeholder='Search...'/>
+            <input onChange={onInputChange} value={inputText} className='search-bar' placeholder='Search...'/>
           </div>
         </form>
        </div>
