@@ -27,14 +27,22 @@ const Search = () => {
             <h2 className="search__filter-heading">Search Filters</h2>
             <button className="search__filter-toggle" onClick={toggleSearchFilterView}>
               {isFilterVisible ? (
-                <span>-</span>
-              ): <span>+</span>}
+                <span aria-expanded='true' aria-controls='search-filters-form'>
+                  <span  className="sr-only">Close Search Filters</span>
+                  <span aria-hidden='true'>-</span>
+                </span>
+              ): (
+                <span aria-expanded='false' aria-controls='search-filters-form'>
+                  <span  className="sr-only">Open Search Filters</span>
+                  <span aria-hidden='true'>+</span>
+                </span>)
+                }
             </button>
           </div>
 
           {isFilterVisible ? (
 
-          <form className="search__form">
+          <form className="search__form" id='search-filters-form'>
             <div className="search__form-field">
               <label htmlFor="department">Department</label>
               <select id='department'>

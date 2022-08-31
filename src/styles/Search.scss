@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   border: 1px solid var(--font-color);
-  padding: 20px;
+  padding: 20px 20px 0 20px;
   min-width: 300px;
 }
 
@@ -33,7 +33,6 @@
 
 .search__filter-heading {
   margin: 0;
-  padding-bottom: 20px;
 }
 .search__results-heading {
   margin: 0;
