@@ -12,6 +12,7 @@
   flex-direction: column;
   border: 1px solid var(--font-color);
   padding: 20px;
+  min-width: 300px;
 }
 
 .search__results {
@@ -61,4 +62,12 @@
   position: absolute;
   right: 10px;
   top: 10px;
+}
+
+.search__filter-toggle-container {
+  display: flex;
+  justify-content: space-between;
+}
+.search__filter-toggle {
+
 }

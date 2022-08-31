@@ -6,10 +6,14 @@ import { Link } from 'react-router-dom';
 
 import '../styles/Search.scss'
 const Search = () => {
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
   console.log('search')
 
   // TODO: Get departments list https://collectionapi.metmuseum.org/public/collection/v1/departments
 
+  const toggleSearchFilterView = () => {
+    setIsFilterVisible(!isFilterVisible)
+  }
 
   return (
     <div className="search">
@@ -19,7 +23,17 @@ const Search = () => {
       </Link>
       <main className="search-page-container">
         <div className="search__filter">
-          <h2 className="search__filter-heading">Search Filters</h2>
+          <div className="search__filter-toggle-container">
+            <h2 className="search__filter-heading">Search Filters</h2>
+            <button className="search__filter-toggle" onClick={toggleSearchFilterView}>
+              {isFilterVisible ? (
+                <span>-</span>
+              ): <span>+</span>}
+            </button>
+          </div>
+
+          {isFilterVisible ? (
+
           <form className="search__form">
             <div className="search__form-field">
               <label htmlFor="department">Department</label>
@@ -50,9 +64,15 @@ const Search = () => {
               <fieldset>
                 <legend>Date Range</legend>
                 <label htmlFor="dateRangeStart">
-                  Start
+                  Start Year
                 </label>
-                <input id='dateRangeStart' type='date'/>
+                <input id='dateRangeStart' type='number'/>
+                <div>
+                  <label htmlFor="dateRangeEnd">
+                    End Year
+                  </label>
+                  <input id='dateRangeEnd' type='number'/>
+                </div>
               </fieldset>
             </div>
             <div className="search__form-field">
@@ -86,6 +106,7 @@ const Search = () => {
               <SearchIcon />
             </button>
           </form>
+          ) : null}
         </div>
         <div className="search__results">
           <h1 className="search__results-heading">Search Results</h1>

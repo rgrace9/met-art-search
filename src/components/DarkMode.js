@@ -1,15 +1,10 @@
 import "../styles/DarkMode.scss";
-import { ChangeEventHandler } from "react";
 import SunIcon from './Icons/SunIcon';
 import MoonIcon from './Icons/MoonIcon';
+import React from 'react';
 
-// 1
 const setDark = () => {
-
-  // 2
   localStorage.setItem("theme", "dark");
-
-  // 3
   document.documentElement.setAttribute("data-theme", "dark");
 };
 
@@ -32,8 +27,7 @@ if (defaultDark) {
   setDark();
 }
 
-// 5
-const toggleTheme: ChangeEventHandler<HTMLInputElement> = (e) => {
+const toggleTheme = (e) => {
   if (e.target.checked) {
     setDark();
   } else {
@@ -41,18 +35,26 @@ const toggleTheme: ChangeEventHandler<HTMLInputElement> = (e) => {
   }
 };
 
-
 const DarkMode = () => {
+
   return (
     <label className='toggle' htmlFor='toggle'>
-    <input           onChange={toggleTheme}
-          defaultChecked={defaultDark} type='checkbox' name='toggle' id='toggle' className="toggle__input"  />
-    <span className="toggle__display" hidden>
-      <SunIcon />
-      <MoonIcon color='white' className='toggle__moon-icon'/>
-    </span>
-    Dark Mode
-  </label>
+      <input
+        onChange={toggleTheme}
+        defaultChecked={defaultDark}
+        type='checkbox'
+        name='toggle'
+        id='toggle'
+        className="toggle__input"
+      />
+      <span className="toggle__display">
+        <span>
+          <SunIcon />
+          <span className="sr-only">Turn on dark mode</span>
+        </span>
+        <MoonIcon color='white' className='toggle__moon-icon' />
+      </span>
+    </label>
   );
 };
 

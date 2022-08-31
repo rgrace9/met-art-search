@@ -1,9 +1,10 @@
 import React from 'react';
+import '../styles/SearchResult.scss';
 
 const SearchResult = () => {
 
   return (
-    <div>
+    <div className='result'>
       Search Result
     </div>
   )
