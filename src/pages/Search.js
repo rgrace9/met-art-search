@@ -1,19 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from '../components/Icons/SearchIcon';
 import DarkMode from '../components/DarkMode';
 import SearchResult from "../components/SearchResult";
-import { Link } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 
 import '../styles/Search.scss'
 const Search = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  console.log('search')
 
   // TODO: Get departments list https://collectionapi.metmuseum.org/public/collection/v1/departments
 
   const toggleSearchFilterView = () => {
     setIsFilterVisible(!isFilterVisible)
   }
+
+
+  const [searchParams] = useSearchParams();
+
+
+  useEffect(() => {
+    document.title = 'Search';
+    const getSearchParams = () => {
+      for (const entry of searchParams.entries()) {
+        console.log(entry);
+      }
+    }
+
+    getSearchParams();
+
+  }, [searchParams])
+
+
 
   return (
     <div className="search">
