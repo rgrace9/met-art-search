@@ -2,22 +2,39 @@ import React, { useEffect, useState } from "react";
 import SearchIcon from '../components/Icons/SearchIcon';
 import DarkMode from '../components/DarkMode';
 import SearchResult from "../components/SearchResult";
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import {MetDepartmentClient} from '../axios';
+import {DEPARTMENTS} from '../constants';
 
-import '../styles/Search.scss'
-const Search = () => {
+import '../styles/Search.scss';
+
+
+const Search = (props) => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
 
   // TODO: Get departments list https://collectionapi.metmuseum.org/public/collection/v1/departments
 
+  const clearSessionStorage = () => {
+    window.history.replaceState({}, '')
+    console.log('here', location)
+  }
   const toggleSearchFilterView = () => {
     setIsFilterVisible(!isFilterVisible)
   }
 
+  const location = useLocation();
+
+  console.log('location', location)
 
   const [searchParams] = useSearchParams();
 
 
+  const fetchDepartments = async () => {
+    // const res = await MetDepartmentClient();
+
+    // debugger;
+    console.log('DEPARTMENTS', DEPARTMENTS)
+  }
   useEffect(() => {
     document.title = 'Search';
     const getSearchParams = () => {
@@ -28,12 +45,14 @@ const Search = () => {
 
     getSearchParams();
 
+
   }, [searchParams])
 
 
 
   return (
     <div className="search">
+      <button onClick={fetchDepartments}>Yo</button>
       <DarkMode />
       <Link to='/' className="home-link">
         <span>Met Art Search</span>
@@ -62,10 +81,8 @@ const Search = () => {
           <form className="search__form" id='search-filters-form'>
             <div className="search__form-field">
               <label htmlFor="department">Department</label>
-              <select id='department'>
-                <option>All departments</option>
-                <option>Medieval</option>
-                <option>Ancient Roman</option>
+              <select id='department' defaultValue=''>
+                {DEPARTMENTS.map(department => (<option key={department.displayName}>{department.displayName}</option>))}
               </select>
             </div>
             <div className="search__form-field">

@@ -1,10 +1,10 @@
 import '../styles/Home.scss';
 import SearchIcon from '../components/Icons/SearchIcon';
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import DarkMode from '../components/DarkMode';
 import { useNavigate } from 'react-router-dom'
-import { MET_API_URL } from '../constants'
 import { MetClient } from '../axios';
+
 function App() {
 
   let navigate = useNavigate();
@@ -12,13 +12,26 @@ function App() {
   const [inputText, setInputText] = useState('')
   const onSearch = async (event) => {
     event.preventDefault();
-    // `?q=${inputText}`
-    await MetClient.get(`search?q=${inputText}`)
-    navigate(`search?q=${inputText}`)
+
+    try {
+      const res = await MetClient.get(`search?q=${inputText}`)
+
+      navigate(
+        `search?q=${inputText}`,
+        {
+          state: {
+            objectIDs: res.data.objectIDs,
+            totalCount: res.data.total
+          }
+        }
+      )
+
+    } catch (err) {
+
+    }
   }
 
   const onInputChange = (event) => {
-    console.log(event.target)
     setInputText(event.target.value)
   }
 
@@ -27,22 +40,22 @@ function App() {
   return (
     <div className="container">
 
-       <div className='left-half'>
+      <div className='left-half'>
         <DarkMode />
         <h1>Search the collection of New York's Metropolitan Museum of Art</h1>
         <form className='home-form' onSubmit={onSearch}>
           <div className='search-bar-wrapper'>
             <SearchIcon />
-            <input onChange={onInputChange} value={inputText} className='search-bar' placeholder='Search...'/>
+            <input onChange={onInputChange} value={inputText} className='search-bar' placeholder='Search...' />
           </div>
         </form>
-       </div>
-       <div className='right-half'>
+      </div>
+      <div className='right-half'>
         <div className='right-corner'>
           <img className='home-image' src='/DT1500.jpeg' alt='' />
         </div>
 
-</div>
+      </div>
     </div>
   );
 }
