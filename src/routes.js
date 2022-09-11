@@ -4,6 +4,7 @@ import { history } from './helpers/history';
 
 import Home from './pages/Home';
 import Search from './pages/Search';
+import Buttons from './pages/Buttons';
 
 const Routing = () => {
   return (
@@ -19,6 +20,12 @@ const Routing = () => {
         <Route
           path='/search'
           element={<Search />}
+        >
+
+        </Route>
+        <Route
+          path='/buttons'
+          element={<Buttons />}
         >
 
         </Route>

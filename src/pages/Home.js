@@ -3,7 +3,6 @@ import SearchIcon from '../components/Icons/SearchIcon';
 import React, { useState } from 'react'
 import DarkMode from '../components/DarkMode';
 import { useNavigate } from 'react-router-dom'
-import { MetClient } from '../axios';
 
 function App() {
 
@@ -14,18 +13,7 @@ function App() {
     event.preventDefault();
 
     try {
-      const res = await MetClient.get(`search?q=${inputText}`)
-
-      navigate(
-        `search?q=${inputText}`,
-        {
-          state: {
-            objectIDs: res.data.objectIDs,
-            totalCount: res.data.total
-          }
-        }
-      )
-
+      navigate(`search?q=${inputText}`)
     } catch (err) {
 
     }
@@ -39,7 +27,6 @@ function App() {
   // the user can click on the link to get to the artist's page
   return (
     <div className="container">
-
       <div className='left-half'>
         <DarkMode />
         <h1>Search the collection of New York's Metropolitan Museum of Art</h1>

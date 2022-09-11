@@ -6,7 +6,7 @@ export   const MetObjectClient = axios.create({
 });
 
 export const MetClient = axios.create({
-  baseURL: 'https://collectionapi.metmuseum.org/public/collection/v1/',
+  baseURL: 'https://collectionapi.metmuseum.org/public/collection/v1',
 });
 
 export const MetDepartmentClient = axios.create({

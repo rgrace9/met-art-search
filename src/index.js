@@ -6,11 +6,7 @@ import Routes from './routes';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-
-    <Routes />
-
-  </React.StrictMode>
+  <Routes />
 );
 
 // If you want to start measuring performance in your app, pass a function
