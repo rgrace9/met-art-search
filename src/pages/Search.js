@@ -5,6 +5,7 @@ import SearchResult from "../components/SearchResult";
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import {MetClient, MetObjectClient} from '../axios';
 import {DEPARTMENTS, GEOLOCATIONS} from '../constants';
+import {  useQuery } from 'react-query'
 
 import '../styles/Search.scss';
 
@@ -28,10 +29,17 @@ const INITIAL_SEARCH_FILTER = {
   [QUERY_PARAM]: ''
 }
 const Search = () => {
+
+
+
   const [isFilterVisible, setIsFilterVisible] = useState(true);
-  const [results, setResults] = useState(DEFAULT_RESULTS_DATA)
+
+  const [results, setResults] = useState(DEFAULT_RESULTS_DATA);
+
   const [isLoadingObjectIds, setIsLoadingObjectIds] = useState(false);
+
   const [isLoadingPageObjects, setIsLoadingPageObjects] = useState(false);
+
   const [searchFilter, setSearchFilter] = useState(INITIAL_SEARCH_FILTER);
 
   const toggleSearchFilterView = () => {
@@ -40,10 +48,12 @@ const Search = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const fetchResults = async (params) => {
-    const res = await MetClient(`search?${params}`)
+  const getResults = async () => {
+    const res = await MetClient(`search?${searchParams}`)
     return res;
   }
+  const fetchResults = useQuery('objects', getResults)
+
 
   useEffect(() => {
     document.title = 'Search';
@@ -84,93 +94,93 @@ const Search = () => {
   }
 
   return (
-    <div className="search">
-      <DarkMode />
-      <Link to='/' className="home-link">
-        Met Art Search
-      </Link>
-      <main className="search-page-container">
-        <div className="search__filter">
-          <div className="search__filter-toggle-container">
-            <h2 className="search__filter-heading">Search Filters</h2>
-            <button className="search__filter-toggle" onClick={toggleSearchFilterView}>
-              {isFilterVisible ? (
-                <span aria-expanded='true' aria-controls='search-filters-form'>
-                  <span  className="sr-only">Close Search Filters</span>
-                  <span aria-hidden='true'>-</span>
-                </span>
-              ): (
-                <span aria-expanded='false' aria-controls='search-filters-form'>
-                  <span  className="sr-only">Open Search Filters</span>
-                  <span aria-hidden='true'>+</span>
-                </span>)
-                }
-            </button>
-          </div>
-
-          {isFilterVisible ? (
-            <form className="search__form" id='search-filters-form' onSubmit={handleSearch}>
-              <div className="search__form-field-column">
-                <label htmlFor="department">Search</label>
-                <input id='query' value={searchFilter[QUERY_PARAM]} onChange={(event) => handleFormField(event.target.value, QUERY_PARAM)} />
-              </div>
-              <div className="search__form-field-column">
-                <label htmlFor="department">Department</label>
-                <select id='department' value={searchFilter[DEPARTMENT_ID_PARAM]} onChange={(event) => handleFormField(event.target.value, DEPARTMENT_ID_PARAM)}>
-                  {DEPARTMENTS.map(department => (<option key={department.displayName} value={department.departmentId}>{department.displayName}</option>))}
-                </select>
-              </div>
-              <div className="search__form-field-column">
-              <label htmlFor="location">Location</label>
-                <select id='location' value={searchFilter[GEOLOCATION_PARAM]} onChange={(event) => handleFormField(event.target.value, GEOLOCATION_PARAM)}>
-                  {GEOLOCATIONS.map(geolocation => (
-                    <option key={geolocation} id={geolocation}>{geolocation}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="search__form-field-column">
-                <fieldset>
-                  <legend>Date Range</legend>
-                  <label htmlFor="dateRangeStart">
-                    Start Year
-                  </label>
-                  <input id='dateRangeStart' type='number'/>
-                  <div>
-                    <label htmlFor="dateRangeEnd">
-                      End Year
-                    </label>
-                    <input id='dateRangeEnd' type='number'/>
-                  </div>
-                </fieldset>
-              </div>
-              <h3 id='showOnly'>Show Only:</h3>
-              <div className="search__form-field">
-                <input type='checkbox' id='isOnViewYes' checked={Boolean(searchFilter[IS_ON_VIEW_PARAM])} onChange={(event) => handleFormField(event.target.checked, IS_ON_VIEW_PARAM)}/>
-                <label htmlFor="isOnViewYes">
-                  <span className="sr-only">Show Only</span>
-                  Artworks On View
-                </label>
-
-              </div>
-              <div className="search__form-field">
-                <input type='checkbox' id='hasImageYes' checked={Boolean(searchFilter[HAS_IMAGES_PARAM])} onChange={(event) => handleFormField(event.target.checked, HAS_IMAGES_PARAM)}/>
-                <label htmlFor="hasImageYes">
-                  <span className="sr-only">Show Only</span>
-                  Artworks with Image
-                </label>
-              </div>
-              <button className="search__button" type="submit">
-                <span className="search__button-text">Search</span>
+      <div className="search">
+        <DarkMode />
+        <Link to='/' className="home-link">
+          Met Art Search
+        </Link>
+        <main className="search-page-container">
+          <div className="search__filter">
+            <div className="search__filter-toggle-container">
+              <h2 className="search__filter-heading">Search Filters</h2>
+              <button className="search__filter-toggle" onClick={toggleSearchFilterView}>
+                {isFilterVisible ? (
+                  <span aria-expanded='true' aria-controls='search-filters-form'>
+                    <span  className="sr-only">Close Search Filters</span>
+                    <span aria-hidden='true'>-</span>
+                  </span>
+                ): (
+                  <span aria-expanded='false' aria-controls='search-filters-form'>
+                    <span  className="sr-only">Open Search Filters</span>
+                    <span aria-hidden='true'>+</span>
+                  </span>)
+                  }
               </button>
-            </form>
-            ) : null}
-        </div>
-        <div className="search__results">
-          <h1 className="search__results-heading">Search Results</h1>
-          <SearchResult />
-        </div>
-      </main>
-    </div>
+            </div>
+
+            {isFilterVisible ? (
+              <form className="search__form" id='search-filters-form' onSubmit={handleSearch}>
+                <div className="search__form-field-column">
+                  <label htmlFor="department">Search</label>
+                  <input id='query' value={searchFilter[QUERY_PARAM]} onChange={(event) => handleFormField(event.target.value, QUERY_PARAM)} />
+                </div>
+                <div className="search__form-field-column">
+                  <label htmlFor="department">Department</label>
+                  <select id='department' value={searchFilter[DEPARTMENT_ID_PARAM]} onChange={(event) => handleFormField(event.target.value, DEPARTMENT_ID_PARAM)}>
+                    {DEPARTMENTS.map(department => (<option key={department.displayName} value={department.departmentId}>{department.displayName}</option>))}
+                  </select>
+                </div>
+                <div className="search__form-field-column">
+                <label htmlFor="location">Location</label>
+                  <select id='location' value={searchFilter[GEOLOCATION_PARAM]} onChange={(event) => handleFormField(event.target.value, GEOLOCATION_PARAM)}>
+                    {GEOLOCATIONS.map(geolocation => (
+                      <option key={geolocation} id={geolocation}>{geolocation}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="search__form-field-column">
+                  <fieldset>
+                    <legend>Date Range</legend>
+                    <label htmlFor="dateRangeStart">
+                      Start Year
+                    </label>
+                    <input id='dateRangeStart' type='number'/>
+                    <div>
+                      <label htmlFor="dateRangeEnd">
+                        End Year
+                      </label>
+                      <input id='dateRangeEnd' type='number'/>
+                    </div>
+                  </fieldset>
+                </div>
+                <h3 id='showOnly'>Show Only:</h3>
+                <div className="search__form-field">
+                  <input type='checkbox' id='isOnViewYes' checked={Boolean(searchFilter[IS_ON_VIEW_PARAM])} onChange={(event) => handleFormField(event.target.checked, IS_ON_VIEW_PARAM)}/>
+                  <label htmlFor="isOnViewYes">
+                    <span className="sr-only">Show Only</span>
+                    Artworks On View
+                  </label>
+
+                </div>
+                <div className="search__form-field">
+                  <input type='checkbox' id='hasImageYes' checked={Boolean(searchFilter[HAS_IMAGES_PARAM])} onChange={(event) => handleFormField(event.target.checked, HAS_IMAGES_PARAM)}/>
+                  <label htmlFor="hasImageYes">
+                    <span className="sr-only">Show Only</span>
+                    Artworks with Image
+                  </label>
+                </div>
+                <button className="search__button" type="submit">
+                  <span className="search__button-text">Search</span>
+                </button>
+              </form>
+              ) : null}
+          </div>
+          <div className="search__results">
+            <h1 className="search__results-heading">Search Results</h1>
+            <SearchResult />
+          </div>
+        </main>
+      </div>
   )
 }
 
