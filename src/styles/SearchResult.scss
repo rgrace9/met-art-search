@@ -2,6 +2,53 @@ $black: #010201ff;
 
 .result {
   padding: 20px;
-  box-shadow: 0 0 10px $black;
-  margin-right: 5px;
+  // box-shadow: 0 0 10px $black;
+  margin-right: 30px;
+  margin-bottom: 40px;
+  flex: 1 0 200px;
+  align-self: stretch;
+
+  border-radius: 4px;
+  // display: block;
+  overflow: hidden;
+  // padding: calc(8px + 0.25vw);
+
+  max-width: 300px;
+  min-height: 400px;
+
+  // border: 2px solid var(--font-color);
+//  background:white;
+
+  &:hover {
+    box-shadow: 10px 10px 20px $black;
+  }
+}
+
+
+.results-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  height: 824px;
+  overflow: auto;
+}
+
+.result__image-container {
+  align-items: center;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  margin-bottom: calc(16px + 0.5vw);
+  max-width: 100%;
+  position: relative;
+}
+
+.result__image {
+  max-height: 100%;
+  max-width: 100%;
+  position: absolute;
+}
+
+.result__meta-data {
+  text-align: center;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SearchIcon from '../components/Icons/SearchIcon';
 import DarkMode from '../components/DarkMode';
-import SearchResult from "../components/SearchResult";
+import SearchResult from "../components/SearchResultsSection";
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import {MetClient, MetObjectClient} from '../axios';
 import {DEPARTMENTS, GEOLOCATIONS} from '../constants';
@@ -36,11 +36,12 @@ const Search = () => {
 
   const [results, setResults] = useState(DEFAULT_RESULTS_DATA);
 
-  const [isLoadingObjectIds, setIsLoadingObjectIds] = useState(false);
-
-  const [isLoadingPageObjects, setIsLoadingPageObjects] = useState(false);
+  const [objectIds, setObjectIds] = useState([])
+  const [objectsCount, setObjectsCount] = useState(0)
 
   const [searchFilter, setSearchFilter] = useState(INITIAL_SEARCH_FILTER);
+
+  const [filter, setFilter] = useState(false)
 
   const toggleSearchFilterView = () => {
     setIsFilterVisible(!isFilterVisible)
@@ -49,10 +50,33 @@ const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const getResults = async () => {
-    const res = await MetClient(`search?${searchParams}`)
-    return res;
+    try {
+      const res = await MetClient(`search?${searchParams}`);
+
+      if (res.data.total === 0) return []
+
+      setObjectIds(res.data.objectIDs)
+      const currentObjectIds = res.data.objectIDs.slice(0, 9);
+
+      const result = await Promise.all(
+
+        currentObjectIds.map(async (objectId) => {
+          try {
+            const response = await MetObjectClient(objectId.toString());
+            return response.data;
+          } catch (err) {
+            console.error(`I'm down, this time. ${err}`);
+          }
+        })
+      );
+      return result;
+    } catch(error) {
+
+      throw error;
+    }
   }
-  const fetchResults = useQuery('objects', getResults)
+
+  const { isLoading, error, data } = useQuery([filter], getResults)
 
 
   useEffect(() => {
@@ -66,8 +90,8 @@ const Search = () => {
           ...prevState,
           [fieldName]: fieldValue
         }));
-        const res = await fetchResults(params);
-        console.log('res', res)
+        // const res = await fetchResults(params);
+        // console.log('res', res)
       }
     }
 
@@ -89,8 +113,8 @@ const Search = () => {
 
   const handleSearch = async (event) => {
     event.preventDefault();
-    const res = await fetchResults(searchParams.toString());
-    console.log('res', res)
+    setFilter(searchParams.toString())
+
   }
 
   return (
@@ -177,7 +201,7 @@ const Search = () => {
           </div>
           <div className="search__results">
             <h1 className="search__results-heading">Search Results</h1>
-            <SearchResult />
+            <SearchResult isLoading={isLoading} data={data} />
           </div>
         </main>
       </div>
