@@ -8,11 +8,13 @@ const SearchResultTile = (props) => {
   return (
     <div className="result">
       <div className="result__image-container">
-        <img className="result__image" src={data.primaryImageSmall} />
+        {data.primaryImage ? (
+          <img className="result__image" src={data.primaryImageSmall} alt={data.title} />
+        ) : 'No Image'}
       </div>
       <div className="result__meta-data">
         <h3>{data.title}</h3>
-        <p>{data.artistDisplayName}</p>
+        <p>{data.artistDisplayName || data.country}</p>
       </div>
     </div>
   )

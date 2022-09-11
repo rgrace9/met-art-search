@@ -13,6 +13,7 @@
   border: 1px solid var(--font-color);
   padding: 20px 20px 0 20px;
   min-width: 300px;
+  max-height: 700px;
 }
 
 .search__results {
@@ -24,6 +25,25 @@
 
 .search {
   padding: 40px;
+}
+
+@media screen and (max-width: 700px) {
+
+  /* Specific to this particular image */
+  .search {
+    padding: 0;
+    padding-top: 40px;
+    /* 50% */
+  }
+
+  .search-page-container {
+
+    flex-direction: column;
+  }
+  // .search__filter {
+  //   min-width: none;
+
+  // }
 }
 
 .search__form {

@@ -1,4 +1,5 @@
 const GEOLOCATIONS = [
+  'Select Department',
   'Aegean Islands',
   'Afghanistan',
   'Africa',

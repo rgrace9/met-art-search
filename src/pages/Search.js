@@ -158,24 +158,9 @@ const Search = () => {
                 <label htmlFor="location">Location</label>
                   <select id='location' value={searchFilter[GEOLOCATION_PARAM]} onChange={(event) => handleFormField(event.target.value, GEOLOCATION_PARAM)}>
                     {GEOLOCATIONS.map(geolocation => (
-                      <option key={geolocation} id={geolocation}>{geolocation}</option>
+                      <option key={geolocation} id={geolocation === 'Select Department' ? '' : geolocation}>{geolocation}</option>
                     ))}
                   </select>
-                </div>
-                <div className="search__form-field-column">
-                  <fieldset>
-                    <legend>Date Range</legend>
-                    <label htmlFor="dateRangeStart">
-                      Start Year
-                    </label>
-                    <input id='dateRangeStart' type='number'/>
-                    <div>
-                      <label htmlFor="dateRangeEnd">
-                        End Year
-                      </label>
-                      <input id='dateRangeEnd' type='number'/>
-                    </div>
-                  </fieldset>
                 </div>
                 <h3 id='showOnly'>Show Only:</h3>
                 <div className="search__form-field">
