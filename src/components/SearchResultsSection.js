@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchResultTile from './SearchResultTile';
+import Loader from '../components/Loader';
 import '../styles/SearchResult.scss';
 
 const SearchResultsSection = (props) => {
@@ -9,7 +10,7 @@ const SearchResultsSection = (props) => {
   return (
     <section aria-live='polite' aria-busy={isLoading}>
       {isLoading ? (
-        <p>Loading...</p>
+        <Loader />
       ) : (
         <div className='results-container'>
           {data.map(object => (

@@ -52,3 +52,18 @@ $black: #010201ff;
 .result__meta-data {
   text-align: center;
 }
+
+.result__button {
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  width: 100%;
+  cursor: pointer;
+  padding: 4px;
+  margin: 4px;
+
+  &:focus {
+    outline: 4px solid var(--font-color);
+  }
+}

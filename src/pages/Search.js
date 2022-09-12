@@ -108,13 +108,17 @@ const Search = () => {
       [fieldName]: value
     }));
 
-    setSearchParams({...searchFilter, [fieldName]: value})
+    if (value === false) {
+      delete searchFilter[fieldName]
+      setSearchParams({...searchFilter})
+    } else {
+      setSearchParams({...searchFilter, [fieldName]: value})
+    }
   }
 
   const handleSearch = async (event) => {
     event.preventDefault();
-    setFilter(searchParams.toString())
-
+    setFilter(searchParams.toString());
   }
 
   return (
@@ -127,22 +131,7 @@ const Search = () => {
           <div className="search__filter">
             <div className="search__filter-toggle-container">
               <h2 className="search__filter-heading">Search Filters</h2>
-              <button className="search__filter-toggle" onClick={toggleSearchFilterView}>
-                {isFilterVisible ? (
-                  <span aria-expanded='true' aria-controls='search-filters-form'>
-                    <span  className="sr-only">Close Search Filters</span>
-                    <span aria-hidden='true'>-</span>
-                  </span>
-                ): (
-                  <span aria-expanded='false' aria-controls='search-filters-form'>
-                    <span  className="sr-only">Open Search Filters</span>
-                    <span aria-hidden='true'>+</span>
-                  </span>)
-                  }
-              </button>
             </div>
-
-            {isFilterVisible ? (
               <form className="search__form" id='search-filters-form' onSubmit={handleSearch}>
                 <div className="search__form-field-column">
                   <label htmlFor="department">Search</label>
@@ -182,7 +171,6 @@ const Search = () => {
                   <span className="search__button-text">Search</span>
                 </button>
               </form>
-              ) : null}
           </div>
           <div className="search__results">
             <h1 className="search__results-heading">Search Results</h1>
