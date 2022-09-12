@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Modal from '../components/Modal';
 import ModalContent from '../components/ModalContent';
 
@@ -7,6 +7,18 @@ const SearchResultTile = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const {data} = props;
+
+  useEffect(() => {
+    if (isModalVisible) {
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${window.scrollY}px`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+  }, [isModalVisible])
 
   return (
     <div className="result">
