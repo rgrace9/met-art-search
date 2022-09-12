@@ -60,7 +60,7 @@ const ModalContent = (props) => {
           <a href={data.artistULAN_URL}>ULAN record of {data.artistDisplayName}</a>
         ) : null}
         {data.objectWikidata_URL ? (
-          <a href={data.objectWikidata_URL}>Wiki Data record of {data.artistDisplayName}</a>
+          <a href={data.objectWikidata_URL}>Wiki Data record of {data.title}</a>
         ) : null}
       </div>
     </section>

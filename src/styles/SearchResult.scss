@@ -62,6 +62,7 @@ $black: #010201ff;
   cursor: pointer;
   padding: 4px;
   margin: 4px;
+  color: var(--font-color);
 
   &:focus {
     outline: 4px solid var(--font-color);
